@@ -45,13 +45,13 @@ local on_digiline_receive = function(pos, node, channel, msg)
 	if channel == meta:get_string("channel") then
 		if msg == DEL_CMD then
 			meta:set_string("data", "return {}")
-			digiline:receptor_send(pos, digilines.rules.default, channel, OK_MSG)
+			digiline:receptor_send(pos, digiline.rules.default, channel, OK_MSG) --bug was here
 			return
 		end
 
 		if msg:split(" ")[2] == nil then return end -- no arguments :/
 
-		cmd = msg:split(" ")[2]
+		cmd = msg:split(" ")[1]  --bu was here
 		addr = tonumber(msg:split(" ")[2])
 		if addr == nil or addr < 1 or addr > get_chip_size(pos) then return end -- invalid address
 
@@ -59,7 +59,7 @@ local on_digiline_receive = function(pos, node, channel, msg)
 		elseif cmd == SET_CMD and msg:split(" ")[3] ~= nil then
 			data[addr] = msg:sub(cmd:len() + tostring(addr):len() + 2, -1) -- its too complicated...
 			meta:set_string("data", minetest.serialize(data))
-			digiline:receptor_send(pos, digilines.rules.default, channel, OK_MSG)
+			digiline:receptor_send(pos, digiline.rules.default, channel, OK_MSG)--bug was here
 		end
 	end
 end
