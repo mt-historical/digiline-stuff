@@ -51,7 +51,7 @@ local on_digiline_receive = function(pos, node, channel, msg)
 
 		if msg:split(" ")[2] == nil then return end -- no arguments :/
 
-		cmd = msg:split(" ")[1]  --bu was here
+		cmd = msg:split(" ")[1]  --bug was here
 		addr = tonumber(msg:split(" ")[2])
 		if addr == nil or addr < 1 or addr > get_chip_size(pos) then return end -- invalid address
 
