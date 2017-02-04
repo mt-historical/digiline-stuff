@@ -57,7 +57,7 @@ local on_digiline_receive = function(pos, node, channel, msg)
 
 		if cmd == GET_CMD then digiline:receptor_send(pos, digiline.rules.default, channel, data[addr])
 		elseif cmd == SET_CMD and msg:split(" ")[3] ~= nil then
-			data[addr] = msg:sub(cmd:len() + tostring(addr):len() + 2, -1) -- its too complicated...
+			data[addr] = msg:sub(cmd:len() + tostring(addr):len() + 3, -1) -- its too complicated...
 			meta:set_string("data", minetest.serialize(data))
 			digiline:receptor_send(pos, digiline.rules.default, channel, OK_MSG)--bug was here
 		end
@@ -90,7 +90,7 @@ for i, s in ipairs(MEMORY_CHIPS) do
 			if fields.channel then minetest.get_meta(pos):set_string("channel", fields.channel) end
 		end,
 	})
-	
+
 	if i ~= 1 then
 		minetest.register_craft({
 			type = "shapeless",
