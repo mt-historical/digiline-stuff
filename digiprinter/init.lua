@@ -67,7 +67,7 @@ local print_paper = function(pos, node, msg)
 end
 
 local on_digiline_receive = function(pos, node, channel, msg)
-	if type("msg") ~= "string" then
+	if type(msg) ~= "string" then
 		return
 	end
 	local meta = minetest.get_meta(pos)
