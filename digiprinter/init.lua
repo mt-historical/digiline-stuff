@@ -20,22 +20,22 @@ local function facedir_to_dir(facedir)
 		{x=-1, y=0, z=0},
 		{x=0, y=-1, z=0},
 		{x=0, y=1, z=0}})
-		
+
 			--indexed into by a table of correlating facedirs
-			[({[0]=1, 2, 3, 4, 
+			[({[0]=1, 2, 3, 4,
 				5, 2, 6, 4,
 				6, 2, 5, 4,
 				1, 5, 3, 6,
 				1, 6, 3, 5,
 				1, 4, 3, 2})
-				
+
 				--indexed into by the facedir in question
 				[facedir]]
 end
 
 local print_paper = function(pos, node, msg)
 	local inv = minetest.get_meta(pos):get_inventory()
-	
+
 	local vel = facedir_to_dir(node.param2)
 	local front = { x = pos.x - vel.x, y = pos.y - vel.y, z = pos.z - vel.z }
 	if minetest.get_node(front).name ~= "air" then
@@ -43,30 +43,33 @@ local print_paper = function(pos, node, msg)
 		vel = { x = vel.x * 2, y = vel.y * 2, z = vel.z * 2 }
 		front = { x = pos.x - vel.x, y = pos.y - vel.y, z = pos.z - vel.z }
 	end
-	
+
 	if inv:is_empty("paper") then digiline:receptor_send(pos, digiline.rules.default, channel, NO_PAPER_MSG)
 	elseif minetest.get_node(front).name ~= "air" then digiline:receptor_send(pos, digiline.rules.default, channel, NO_SPACE_MSG)
 	else
 		local paper = inv:get_stack("paper", 1)
 		paper:take_item()
 		inv:set_stack("paper", 1, paper)
-		
+
 		minetest.add_node(front, {
 			name = (msg == "" and "memorandum:letter_empty" or "memorandum:letter_written"),
 			param2 = node.param2
 		})
-		
+
 		local meta = minetest.get_meta(front)
 		meta:set_string("text", msg)
 		meta:set_string("signed", "Digiprinter")
 		meta:set_string("infotext", 'On this piece of paper is written: "'..msg..'" Printed with Digiprinter') -- xD
-		
+
 		digiline:receptor_send(pos, digiline.rules.default, channel, OK_MSG)
 	end
 	minetest.get_meta(pos):set_string("infotext", "Digiline Printer Idle")
 end
 
 local on_digiline_receive = function(pos, node, channel, msg)
+	if type(msg) ~= "string" then
+		return
+	end
 	local meta = minetest.get_meta(pos)
 	if channel == meta:get_string("channel") and not meta:get_string("infotext"):find("Busy") then
 		meta:set_string("infotext", "Digiline Printer Busy")
