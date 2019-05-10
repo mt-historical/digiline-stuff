@@ -62,3 +62,12 @@ minetest.register_craft({
 	},
 })
 
+-- Digiboard
+minetest.register_craft({
+	output = "digiboard:keyboard",
+	recipe = {
+		{ "mesecons_button:button_off", "mesecons_button:button_off", "mesecons_button:button_off" },
+		{ "homedecor:plastic_sheeting", "default:mese_crystal", "homedecor:plastic_sheeting" },
+		{ "mesecons_materials:silicon", "digilines:wire_std_00000000", "mesecons_materials:silicon" },
+	},
+})
