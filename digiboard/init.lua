@@ -6,7 +6,7 @@
 minetest.register_node("digiboard:keyboard", {
 	description = "Digiboard",
 	tiles = {
-		"keyboard_top.png", "keyboard_bottom.png", "keyboard_side.png",
+		"keyboard_top.png", "keyboard_bottom.png^[transformR180", "keyboard_side.png",
 		"keyboard_side.png", "keyboard_side.png", "keyboard_side.png"
 	},
 	walkable = true,
