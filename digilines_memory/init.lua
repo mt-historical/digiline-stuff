@@ -64,6 +64,11 @@ local on_digiline_receive = function(pos, node, channel, msg)
 	end
 end
 
+local f = on_digiline_receive
+on_digiline_receive = function(...)
+	pcall(f, ...)
+end
+
 for i, s in ipairs(MEMORY_CHIPS) do
 	minetest.register_node("digilines_memory:memory_"..i, {
 		description = "Digiline Memory Chip ("..s.." addresses)",
