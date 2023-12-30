@@ -6,9 +6,10 @@
 minetest.register_node("digiboard:keyboard", {
 	description = "Digiboard",
 	tiles = {
-		"keyboard_top.png", "keyboard_bottom.png", "keyboard_side.png",
+		"keyboard_top.png", "keyboard_bottom.png^[transformR180", "keyboard_side.png",
 		"keyboard_side.png", "keyboard_side.png", "keyboard_side.png"
 	},
+	use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "opaque" or nil,
 	walkable = true,
 	paramtype = "light",
 	paramtype2 = "facedir",

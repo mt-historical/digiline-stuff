@@ -114,6 +114,7 @@ minetest.register_node("digiprinter:printer", {
 	inventory_image = "digiprinter_inv.png",
 	tiles = {"digiprinter_t.png","digiprinter_bt.png","digiprinter_l.png",
 			"digiprinter_r.png","digiprinter_b.png","digiprinter_f.png"},
+	use_texture_alpha = minetest.features.use_texture_alpha_string_modes and "opaque" or nil,
 	paramtype = "light",
 	paramtype2 = "facedir",
 	walkable = true,
