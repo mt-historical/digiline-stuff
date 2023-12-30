@@ -92,6 +92,7 @@ for i, s in ipairs(MEMORY_CHIPS) do
 			meta:set_string("data", "return {}") -- xD
 		end,
 		on_receive_fields = function(pos, formname, fields, sender)
+			if minetest.is_protected(pos, sender:get_player_name()) then return end
 			if fields.channel then minetest.get_meta(pos):set_string("channel", fields.channel) end
 		end,
 	})
